@@ -3,6 +3,7 @@
 const http = require('http');
 
 //Step 1. Import crypto-js/sha256
+const SHA256 = require('crypto-js/sha256');
 
 
 // Http port
@@ -20,8 +21,12 @@ blocks.push(block_2);
  * Take the block_2 data from the array "blocks" and generate the hash to be written into the response.
  */
 //Add your code here
-
-
+const app = http.createServer(function(request, response) {
+	response.writeHead(200, {"Content-Type": "application/json"});
+	let hash = SHA256(JSON.stringify(blocks[1])).toString();
+	response.write(JSON.stringify(hash));
+	response.end;
+});
 
 // Notify console
 console.log("Web Server started on port 8080\nhttp://localhost:"+port);
